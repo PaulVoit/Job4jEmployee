@@ -26,7 +26,6 @@ public class EmployeeDetailsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.employee_details_item, container, false);
         initViews(view);
         return view;
@@ -34,7 +33,6 @@ public class EmployeeDetailsFragment extends Fragment {
 
     private void initViews(View view) {
         Employee employee = null;
-
         for (Employee em : EmployeeStore.EMPLOYEES) {
             if (em.getName().equals(this.name) && em.getSurname().equals(this.sureName)) {
                 employee = em;

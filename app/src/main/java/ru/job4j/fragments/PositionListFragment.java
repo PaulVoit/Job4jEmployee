@@ -23,7 +23,6 @@ public class PositionListFragment extends Fragment {
     public static final String POS = "position";
     private PositionSelect positionSelect;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

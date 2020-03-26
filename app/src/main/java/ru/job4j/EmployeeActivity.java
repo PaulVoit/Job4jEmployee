@@ -16,11 +16,8 @@ public class EmployeeActivity extends AppCompatActivity implements PositionListF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.host_frg);
-
         FragmentManager fm = getSupportFragmentManager();
-
         Fragment positionListFragment = loadFrg();
-
         if (fm.findFragmentById(R.id.content) == null) {
             fm.beginTransaction()
                     .replace(R.id.content, positionListFragment)
@@ -29,13 +26,11 @@ public class EmployeeActivity extends AppCompatActivity implements PositionListF
     }
 
     public Fragment loadFrg() {
-
        return PositionListFragment.of(getIntent().getIntExtra(PositionListFragment.POS, 0));
     }
 
     @Override
     public void positionSelected(int code) {
-
         EmployeeListFragment fragment = new EmployeeListFragment(code);
         FragmentManager fm = this.getSupportFragmentManager();
         fm.beginTransaction()

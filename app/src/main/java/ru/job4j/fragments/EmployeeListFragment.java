@@ -30,16 +30,13 @@ public class EmployeeListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.position_recycler_view, container, false);
-
         updateUI(view);
         return view;
     }
 
     public void updateUI(View view) {
         List<Employee> employees = new ArrayList<>();
-
         for (Employee em : EmployeeStore.EMPLOYEES) {
             if (em.getPosition().getCode() == this.code) {
                 employees.add(em);

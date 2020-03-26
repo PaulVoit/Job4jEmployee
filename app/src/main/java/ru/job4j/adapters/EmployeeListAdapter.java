@@ -21,9 +21,10 @@ import ru.job4j.store.Employee;
 import ru.job4j.store.Position;
 
 
-public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeListHolder> {
+public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeListHolder> implements View.OnClickListener {
     private final List<Employee> items;
     private FragmentActivity activity;
+    private int position = 0;
 
     public EmployeeListAdapter(List<Employee> items, FragmentActivity activity) {
         this.items = items;
@@ -61,20 +62,11 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     public void onBindViewHolder(@NonNull EmployeeListHolder holder, int position) {
         TextView textView = holder.view.findViewById(R.id.item_position_text);
         textView.setText(items.get(position).getName() + ", " + items.get(position).getSurname());
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadFrg(items.get(position).getName(), items.get(position).getSurname());
-                Log.d("clicked", "staaaak: ");
-            }
-        });
+        textView.setOnClickListener(this);
     }
 
     private void loadFrg(String name, String sureName) throws RuntimeException {
-
         EmployeeDetailsFragment fragment = new EmployeeDetailsFragment(name, sureName);
-
         FragmentManager fm = activity.getSupportFragmentManager();
         fm.beginTransaction()
                 .addToBackStack("stack?")
@@ -83,8 +75,13 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
     }
 
     @Override
+    public void onClick(View v) {
+        loadFrg(items.get(position).getName(), items.get(position).getSurname());
+        Log.d("clicked", "staaaak: ");
+    }
+
+    @Override
     public int getItemCount() {
         return items.size();
     }
-
 }

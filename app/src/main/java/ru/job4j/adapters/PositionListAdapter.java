@@ -18,15 +18,17 @@ import ru.job4j.R;
 import ru.job4j.fragments.PositionListFragment;
 import ru.job4j.store.Position;
 
-public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapter.PositionHolder> {
+public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapter.PositionHolder> implements View.OnClickListener {
 
     private final List<Position> items;
     private PositionListFragment.PositionSelect positionSelect;
+    private int position = 0;
 
     public PositionListAdapter(List<Position> items, PositionListFragment.PositionSelect positionSelect) {
         this.items = items;
         this.positionSelect = positionSelect;
     }
+
 
     public class PositionHolder extends RecyclerView.ViewHolder {
         private View view;
@@ -51,12 +53,13 @@ public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapte
         final String item = items.get(position).getPositionName();
         TextView textView = holder.view.findViewById(R.id.item_position_text);
         textView.setText(item);
-        textView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                loadFrg(items.get(position).getCode());
-                Log.d("clicked", "staak ");
-            }
-        });
+        textView.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        loadFrg(items.get(position).getCode());
+        Log.d("clicked", "staak ");
     }
 
     @Override
@@ -66,8 +69,6 @@ public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapte
 
 
     private void loadFrg(int code) throws RuntimeException {
-
         positionSelect.positionSelected(code);
-
     }
 }
