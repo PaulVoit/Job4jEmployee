@@ -3,6 +3,8 @@ package ru.job4j.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,6 +25,12 @@ public class PositionListFragment extends Fragment {
     public static final String POS = "position";
     private PositionSelect positionSelect;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,6 +39,12 @@ public class PositionListFragment extends Fragment {
         recycler.setLayoutManager(new LinearLayoutManager(getContext()));
         updateUI(view);
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.position_list, menu);
     }
 
     public static PositionListFragment of(int index) {

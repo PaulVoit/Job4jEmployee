@@ -5,12 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -21,10 +24,9 @@ import ru.job4j.store.Employee;
 import ru.job4j.store.Position;
 
 
-public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeListHolder> implements View.OnClickListener {
+public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapter.EmployeeListHolder> {
     private final List<Employee> items;
     private FragmentActivity activity;
-    private int position = 0;
 
     public EmployeeListAdapter(List<Employee> items, FragmentActivity activity) {
         this.items = items;
@@ -60,9 +62,11 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull EmployeeListHolder holder, int position) {
+        ImageView imageView = holder.view.findViewById(R.id.image_of_employee);
+        Picasso.get().load(items.get(position).getPhotoURL()).fit().into(imageView);
         TextView textView = holder.view.findViewById(R.id.item_position_text);
         textView.setText(items.get(position).getName() + ", " + items.get(position).getSurname());
-        textView.setOnClickListener(this);
+        textView.setOnClickListener(view -> loadFrg(items.get(position).getName(), items.get(position).getSurname()));
     }
 
     private void loadFrg(String name, String sureName) throws RuntimeException {
@@ -72,12 +76,6 @@ public class EmployeeListAdapter extends RecyclerView.Adapter<EmployeeListAdapte
                 .addToBackStack("stack?")
                 .replace(R.id.content, fragment)
                 .commit();
-    }
-
-    @Override
-    public void onClick(View v) {
-        loadFrg(items.get(position).getName(), items.get(position).getSurname());
-        Log.d("clicked", "staaaak: ");
     }
 
     @Override

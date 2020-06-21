@@ -5,10 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -18,17 +21,15 @@ import ru.job4j.R;
 import ru.job4j.fragments.PositionListFragment;
 import ru.job4j.store.Position;
 
-public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapter.PositionHolder> implements View.OnClickListener {
+public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapter.PositionHolder> {
 
     private final List<Position> items;
     private PositionListFragment.PositionSelect positionSelect;
-    private int position = 0;
 
     public PositionListAdapter(List<Position> items, PositionListFragment.PositionSelect positionSelect) {
         this.items = items;
         this.positionSelect = positionSelect;
     }
-
 
     public class PositionHolder extends RecyclerView.ViewHolder {
         private View view;
@@ -38,7 +39,6 @@ public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapte
             this.view = itemView;
         }
     }
-
 
     @NonNull
     @Override
@@ -51,15 +51,11 @@ public class PositionListAdapter extends RecyclerView.Adapter<PositionListAdapte
     @Override
     public void onBindViewHolder(@NonNull PositionHolder holder, int position) {
         final String item = items.get(position).getPositionName();
+        ImageView imageView = holder.view.findViewById(R.id.image_of_employee);
+        Picasso.get().load(items.get(position).getPositionImage()).fit().into(imageView);
         TextView textView = holder.view.findViewById(R.id.item_position_text);
         textView.setText(item);
-        textView.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-        loadFrg(items.get(position).getCode());
-        Log.d("clicked", "staak ");
+        textView.setOnClickListener(v -> loadFrg(items.get(position).getCode()));
     }
 
     @Override
