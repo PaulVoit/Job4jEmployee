@@ -1,2 +1,2 @@
-rootProject.name='Job4jEmployee'
+rootProject.name = 'Job4jEmployee'
 include ':app'

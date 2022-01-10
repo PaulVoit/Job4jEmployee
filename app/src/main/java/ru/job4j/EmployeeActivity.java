@@ -26,7 +26,7 @@ public class EmployeeActivity extends AppCompatActivity implements PositionListF
     }
 
     public Fragment loadFrg() {
-       return PositionListFragment.of(getIntent().getIntExtra(PositionListFragment.POS, 0));
+        return PositionListFragment.of(getIntent().getIntExtra(PositionListFragment.POS, 0));
     }
 
     @Override
